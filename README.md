@@ -1,7 +1,7 @@
 # lobal
 A python load balancer/microservice experiment
 ### What is this
-The purpose of this project is to emmulate what you might find in a microservice architecture in a few python scripts
+The purpose of this project is to emmulate what you might find in a microservice architecture; using a few python scripts
 ![load balancer diagram](http://blog.arungupta.me/wp-content/uploads/2015/04/microservices-proxy.png)
 So far, this project simply proxies through requests for specific webpages(a service) to a node server
 ### How it works
@@ -10,17 +10,17 @@ A node can be created like so:
 ./node <ip of server>
 ```
 When a node is created, it will send a push request to the server, registering this node as a server for some service(a webpage).
-The server will then remember that a node at some location has this service. Thus, when a client requests a particular
-service, the server will randomly pick a node registered on that service to proxy the request to.
+The server will then remember that a node at some ip address and port has this service. Thus, when a client requests a particular
+webpage, the server will randomly pick a node registered on that service to proxy the request to.
 
 This registration action can be emulated with this bash command:
 ```bash
 curl --header "Content-Type: application/json"   --request POST   --data '{"name":"/", "port":5000}'   http://localhost:9000
 ```
 Where we register the name of the service to be "/" and that service to be running on port 5000.
-Evantually, the server will remove this node as it crawls through all the nodes registered on itself.
+Evantually, the server will remove this node as it crawls through all of its registered nodes, checking to see if they are still alive.
 
-Before then, we can curl all the nodes registered on the server
+Before then, we can request details on our new node
 ```bash
 curl localhost:9000
 ```
